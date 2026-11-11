@@ -3525,17 +3525,12 @@ def new_tab(self, ref, title, description=None, icon=None, hide_title=False):
 tab = Tab(ref, title, description, icon, hide_title)
 return tab
 
-def create_tab(self, tab):
-self.__ui_code = registerTab(
-                                                                                                 f""" < li
-
-    class ="ui-sidebar__list-item icon-type-fill" > < a href="
-
-    tab.html,
-    self.__ui_code,
-    )
-    self.__tabs.append(tab)
-
+    def create_tab(self, tab):
+        self._ui_code = registerTab(
+            tab.html,
+            self._ui_code,
+        )
+        self._tabs.append(tab)
     def create_tab_button(self, ref, title, icon, func):
         self.__ui_code = registerTabButton(self.__ui_code, ref, title, icon, func)
         self.__tabs.append(Tab(ref, title, None, None))
