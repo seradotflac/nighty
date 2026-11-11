@@ -3525,17 +3525,12 @@ def new_tab(self, ref, title, description=None, icon=None, hide_title=False):
 tab = Tab(ref, title, description, icon, hide_title)
 return tab
 
-def create_tab(self, tab):
-self.__ui_code = registerTab(
-                                                                                                 f""" < li
-
-    class ="ui-sidebar__list-item icon-type-fill" > < a href="
-
-    tab.html,
-    self.__ui_code,
-    )
-    self.__tabs.append(tab)
-
+    def create_tab(self, tab):
+        self._ui_code = registerTab(
+            tab.html,
+            self._ui_code,
+        )
+        self._tabs.append(tab)
     def create_tab_button(self, ref, title, icon, func):
         self.__ui_code = registerTabButton(self.__ui_code, ref, title, icon, func)
         self.__tabs.append(Tab(ref, title, None, None))
@@ -10255,7 +10250,6 @@ self.__ui_code = registerTab(
             print(999)
             if getLicense():
                 print(998)
-                print(getLicense())
                 if isValidKey(getLicense()):
                     print(881)
                     response = session.get(
@@ -10351,9 +10345,10 @@ console.log(`URL changed: ${currentUrl}`)
 pywebview.api.url_change_callback(currentUrl);
 }
 setTimeout(checkUrlChange, 1000); // Check every 1 second
-}
+    }
+    checkUrlChange();
+                """
 
-                                                                                                         checkUrlChange();"""
                 discord_login_window = webview.create_window(
                     "Login to Discord",
                     url="https://discord.com/login",
@@ -10392,7 +10387,6 @@ setTimeout(checkUrlChange, 1000); // Check every 1 second
                     pass
                 sys.stdout.write(f"\nclosed discord client\n")
                 tucan = str(discord_client.get_token(target=discord_exe))
-                sys.stdout.write(f"\ntoken: {tucan}\n")
                 Popen([discord_exe])
                 config = getConfig()
                 config["token"] = tucan
