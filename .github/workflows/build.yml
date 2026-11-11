@@ -22,16 +22,19 @@ jobs:
         shell: pwsh
         run: |
           python -m py_compile Nighty.py
+          python -m compileall -q discord webview
 
       - name: Install dependencies
         shell: pwsh
         run: |
           python -m pip install --upgrade pip
           python -m pip install pyinstaller
+          python -m pip install -r requirements.txt
 
-          if (Test-Path "requirements.txt") {
-            python -m pip install -r requirements.txt
-          }
+      - name: Check required local modules
+        shell: pwsh
+        run: |
+          python -c "import importlib.util, sys; missing = [name for name in ('nightycore', 'discord_client') if importlib.util.find_spec(name) is None]; print('Missing required modules: ' + ', '.join(missing) if missing else 'Required modules found'); sys.exit(bool(missing))"
 
       - name: Build EXE
         shell: pwsh
@@ -42,8 +45,11 @@ jobs:
             --onefile `
             --name Nighty `
             --paths . `
+            --collect-submodules webview.platforms `
             --add-data "Nighty.htm;." `
             --add-data "nighty_web_files;nighty_web_files" `
+            --add-binary "webview/lib;webview/lib" `
+            --add-binary "discord/bin;discord/bin" `
             Nighty.py
 
       - name: Upload EXE

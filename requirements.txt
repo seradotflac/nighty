@@ -1,0 +1,32 @@
+# Public dependencies imported by Nighty.py and the bundled discord/webview code.
+# The private or missing nightycore and discord_client modules are not substituted.
+aiohttp
+art
+beautifulsoup4
+bleach
+bottle
+cryptography
+discord-protos
+gTTS
+GPUtil
+mmh3
+orjson
+Pillow
+playsound==1.2.2
+proxy-tools
+psutil
+PyGetWindow
+PyNaCl
+pyperclip
+pystray
+pythonnet
+qrcode
+randomuser
+requests
+setuptools<81  # win10toast-click imports pkg_resources
+tls-client
+typing-extensions
+tzlocal
+win10toast-click==0.1.2
+yarl
+youtube-search-python

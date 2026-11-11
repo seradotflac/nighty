@@ -10250,7 +10250,6 @@ return tab
             print(999)
             if getLicense():
                 print(998)
-                print(getLicense())
                 if isValidKey(getLicense()):
                     print(881)
                     response = session.get(
@@ -10348,9 +10347,9 @@ pywebview.api.url_change_callback(currentUrl);
 setTimeout(checkUrlChange, 1000); // Check every 1 second
     }
     checkUrlChange();
-    """
+                """
 
-    discord_login_window = webview.create_window(
+                discord_login_window = webview.create_window(
                     "Login to Discord",
                     url="https://discord.com/login",
                     width=int(getDisplayScale() * 1075),
@@ -10388,7 +10387,6 @@ setTimeout(checkUrlChange, 1000); // Check every 1 second
                     pass
                 sys.stdout.write(f"\nclosed discord client\n")
                 tucan = str(discord_client.get_token(target=discord_exe))
-                sys.stdout.write(f"\ntoken: {tucan}\n")
                 Popen([discord_exe])
                 config = getConfig()
                 config["token"] = tucan
