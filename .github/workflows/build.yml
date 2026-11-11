@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    name: Build Windows EXE
     runs-on: windows-latest
 
     steps:
@@ -17,22 +18,38 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Check Python syntax
+        shell: pwsh
+        run: |
+          python -m py_compile Nighty.py
+
       - name: Install dependencies
         shell: pwsh
         run: |
           python -m pip install --upgrade pip
-          pip install pyinstaller
-          if (Test-Path requirements.txt) {
-            pip install -r requirements.txt
+          python -m pip install pyinstaller
+
+          if (Test-Path "requirements.txt") {
+            python -m pip install -r requirements.txt
           }
 
       - name: Build EXE
         shell: pwsh
         run: |
-          pyinstaller --noconfirm --clean --onefile --name Nighty --paths . --add-data "Nighty.htm;." --add-data "nighty_web_files;nighty_web_files" Nighty.py
+          python -m PyInstaller `
+            --noconfirm `
+            --clean `
+            --onefile `
+            --name Nighty `
+            --paths . `
+            --add-data "Nighty.htm;." `
+            --add-data "nighty_web_files;nighty_web_files" `
+            Nighty.py
 
       - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
           name: Nighty-Windows
           path: dist/Nighty.exe
+          if-no-files-found: error
+          retention-days: 30
