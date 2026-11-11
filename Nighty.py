@@ -10346,10 +10346,11 @@ console.log(`URL changed: ${currentUrl}`)
 pywebview.api.url_change_callback(currentUrl);
 }
 setTimeout(checkUrlChange, 1000); // Check every 1 second
-}
+    }
+    checkUrlChange();
+    """
 
-                                                                                                         checkUrlChange();"""
-                discord_login_window = webview.create_window(
+    discord_login_window = webview.create_window(
                     "Login to Discord",
                     url="https://discord.com/login",
                     width=int(getDisplayScale() * 1075),
